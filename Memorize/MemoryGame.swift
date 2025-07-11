@@ -33,7 +33,27 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         }
     }
     
-    var indexOfTheOneAndOnlyFaceUpCard: Int?
+    var indexOfTheOneAndOnlyFaceUpCard: Int? {
+        get {
+            var faceUpCardIndices: [Int] = []
+            for index in cards.indices {
+                if cards[index].isFaceUp {
+                    faceUpCardIndices.append(index)
+                }
+            }
+            return faceUpCardIndices.count == 1 ? faceUpCardIndices.first : nil
+        }
+        set {
+            for index in cards.indices {
+                if index == newValue {
+                    cards[index].isFaceUp = true
+                }
+                else {
+                    cards[index].isFaceUp = false
+                }
+            }
+        }
+    }
     
     mutating func choose(_ card: Card) {
         // Procura no array cards a carta com o mesmo id da carta escolhida
@@ -57,24 +77,18 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
                         cards[choosenIndex].isMatched = true
                         cards[potencialMatchIndex].isMatched = true
                     }
-                    indexOfTheOneAndOnlyFaceUpCard = nil
                 }
                 
                 // Cenário B: Nenhuma carta está virada
                 // Ou terceira carta a ser virada (caso duas já estejam visíveis)
                 else
                 {
-                    // Vira todas as cartas para baixo
-                    for index in cards.indices
-                    {
-                        cards[index].isFaceUp = false
-                    }
                     // Define a carta atual como a única virada (indexOfTheOneAndOnlyFaceUpCard)
                     indexOfTheOneAndOnlyFaceUpCard = choosenIndex
                 }
                 // Irá tirar as cartas de false para true
                 // O loop acima reseta esse comportamento
-                cards[choosenIndex].isFaceUp.toggle()
+                cards[choosenIndex].isFaceUp = true
             }
         }
     }
