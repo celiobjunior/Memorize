@@ -18,11 +18,15 @@ struct EmojiMemoryGameView: View
                 cards
                     .animation(.default, value: viewModel.cards)
             }
-            Button("Shuffle") {
-                viewModel.shuffle()
-            }
+            newGameButton
         }
         .padding()
+    }
+    
+    var newGameButton: some View {
+        Button("New Game") {
+            viewModel.newGame()
+        }
     }
     
     var cards: some View {
