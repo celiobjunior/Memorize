@@ -8,13 +8,11 @@
 import SwiftUI
 import CoreGraphics
 
-struct Pie: Shape
-{
+struct Pie: Shape {
     var startAngle: Angle = .zero
     var endAngle: Angle
     var clockwise = true
 
-    
     func path(in rect: CGRect) -> Path {
         let startAngle = startAngle - .degrees(90)
         let endAngle = endAngle - .degrees(90)
