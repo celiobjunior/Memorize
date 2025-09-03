@@ -8,22 +8,21 @@
 import SwiftUI
 
 struct Cardify: ViewModifier, Animatable {
-    
     init(isFaceUp: Bool) {
         rotation = isFaceUp ? 0 : 180
     }
+    
+    var rotation: Double
     
     var isFaceUp: Bool {
         rotation < 90
     }
     
-    var rotation: Double
-    
     var animatableData: Double {
         get { rotation }
         set { rotation = newValue }
     }
-
+    
     func body(content: Content) -> some View {
         ZStack {
             let base = RoundedRectangle(cornerRadius: Constants.cornerRadius)

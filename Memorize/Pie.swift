@@ -10,9 +10,9 @@ import CoreGraphics
 
 struct Pie: Shape {
     var startAngle: Angle = .zero
-    var endAngle: Angle
+    let endAngle: Angle
     var clockwise = true
-
+    
     func path(in rect: CGRect) -> Path {
         let startAngle = startAngle - .degrees(90)
         let endAngle = endAngle - .degrees(90)
@@ -24,7 +24,7 @@ struct Pie: Shape {
         )
         
         var p = Path()
-        p.move(to: center )
+        p.move(to: center)
         p.addLine(to: start)
         p.addArc(
             center: center,
@@ -34,7 +34,6 @@ struct Pie: Shape {
             clockwise: !clockwise
         )
         p.addLine(to: center)
-        
         return p
     }
 }
