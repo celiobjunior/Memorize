@@ -20,8 +20,16 @@ struct EmojiMemoryGameView: View {
     
     var body: some View {
         VStack {
-            score
-                .font(.largeTitle)
+            HStack {
+                score
+                    .font(.largeTitle)
+                Spacer()
+                Button("Restart") {
+                    restart()
+                }
+                .font(.title2)
+                .padding(.horizontal)
+            }
             Spacer()
             cards.foregroundColor(viewModel.color)
             Spacer()
@@ -61,6 +69,14 @@ struct EmojiMemoryGameView: View {
             viewModel.choose(card)
             let scoreChange = viewModel.score - scoreBeforeChoosing
             lastScoreChange = (scoreChange, causedByCardId: card.id)
+        }
+    }
+    
+    private func restart() {
+        withAnimation {
+            dealt = []
+            viewModel.restart()
+            lastScoreChange = (0, causedByCardId: "")
         }
     }
     
